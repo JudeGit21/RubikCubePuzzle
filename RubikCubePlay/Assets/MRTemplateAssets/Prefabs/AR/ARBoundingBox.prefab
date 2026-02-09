@@ -151,9 +151,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e676a4fe85b15f142b5df169fd2423b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OrientationVisualizerPrefab: {fileID: 1362899771367802, guid: 48e43bbe3af404986bbdc5a552e5fefd, type: 3}
+  m_OrientationVisualizerPrefab: {fileID: 1362899771367802, guid: 48e43bbe3af404986bbdc5a552e5fefd,
+    type: 3}
   m_MeshRenderer: {fileID: 413225254232827904}
-  m_TmpOverlayMaterial: {fileID: 2100000, guid: 7cba341a6e51a264cbad689b8e47860b, type: 2}
+  m_TmpOverlayMaterial: {fileID: 2100000, guid: 7cba341a6e51a264cbad689b8e47860b,
+    type: 2}
   m_ShowTrackableId: 1
   m_ShowOrientation: 0
   m_ShowClassifications: 1
@@ -219,7 +221,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  m_NoneTrackingTexture: {fileID: 2800000, guid: 1007cae070c2b445e87090afa4f1f34b, type: 3}
+  m_NoneTrackingTexture: {fileID: 2800000, guid: 1007cae070c2b445e87090afa4f1f34b,
+    type: 3}
   m_NoneTrackingMeshColor: {r: 0.19215687, g: 0.19215687, b: 0.19215687, a: 0.2509804}
   m_NoneTrackingMeshTextureColor: {r: 1, g: 1, b: 1, a: 0.2509804}
   m_NoneTrackingOutlineGradient:
@@ -732,7 +735,8 @@ MonoBehaviour:
   m_text: 'Types:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6d34d264dcbda534b839bd11366bfce8, type: 2}
-  m_sharedMaterial: {fileID: 2119413175553802479, guid: 6d34d264dcbda534b839bd11366bfce8, type: 2}
+  m_sharedMaterial: {fileID: 2119413175553802479, guid: 6d34d264dcbda534b839bd11366bfce8,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -883,7 +887,8 @@ MonoBehaviour:
   m_text: Values
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6d34d264dcbda534b839bd11366bfce8, type: 2}
-  m_sharedMaterial: {fileID: 2119413175553802479, guid: 6d34d264dcbda534b839bd11366bfce8, type: 2}
+  m_sharedMaterial: {fileID: 2119413175553802479, guid: 6d34d264dcbda534b839bd11366bfce8,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
