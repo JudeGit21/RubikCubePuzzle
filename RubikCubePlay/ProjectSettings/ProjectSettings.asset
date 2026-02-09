@@ -252,7 +252,7 @@ PlayerSettings:
   clonedFromGUID: 58063fd310ec74b4d89a44e68b0798a1
   templatePackageId: 
   templateDefaultScene: Assets/Scenes/SampleScene.unity
-  useCustomMainManifest: 0
+  useCustomMainManifest: 1
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 0
   useCustomLauncherGradleManifest: 0
