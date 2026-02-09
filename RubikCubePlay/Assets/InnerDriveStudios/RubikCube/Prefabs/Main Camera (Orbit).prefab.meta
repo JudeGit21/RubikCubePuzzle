@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 92c38193f91a2284e951d0aff33f7cfb
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 180681
+  packageName: Interactive Rubik Cube (x * x * x)
+  packageVersion: 1.0
+  assetPath: Assets/InnerDriveStudios/RubikCube/Prefabs/Main Camera (Orbit).prefab
+  uploadId: 394576
