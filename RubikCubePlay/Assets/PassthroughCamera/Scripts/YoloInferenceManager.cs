@@ -1,58 +1,59 @@
 using UnityEngine;
-using Unity.Sentis; 
+using Unity.Sentis; // This MUST be present
+using System.Collections.Generic;
+using Meta.XR; 
 
 public class YoloInferenceManager : MonoBehaviour
 {
-    [Header("AI Assets")]
     public ModelAsset modelAsset;
-    
+    public GameObject boxPrefab;
     private Model runtimeModel;
-    private Worker worker;
-    private Tensor<float> inputTensor; 
-
-    // Reference to the visualizer component
-    private YoloVisualizer visualizer;
+    private Worker worker; 
+    private List<GameObject> activeBoxes = new List<GameObject>();
 
     void Start()
     {
-        if (modelAsset == null) {
-            Debug.LogError("No ModelAsset assigned! Drag yolov8n.onnx into the Inspector.");
-            return;
-        }
-
-        // Get the visualizer component attached to the same object
-        visualizer = GetComponent<YoloVisualizer>();
+        if (modelAsset == null) return;
 
         runtimeModel = ModelLoader.Load(modelAsset);
+        // Create the engine
         worker = new Worker(runtimeModel, BackendType.GPUCompute);
-        inputTensor = new Tensor<float>(new TensorShape(1, 3, 640, 640));
-        
-        Debug.Log("YoloInferenceManager: AI Pipeline Initialized.");
+
+        var pca = FindFirstObjectByType<PassthroughCameraAccess>();
+        if (pca != null) pca.OnFrameReceived += OnCameraFrameReceived;
     }
 
-    public void ProcessFrame(Texture2D cameraFrame)
+    public void OnCameraFrameReceived(Texture2D cameraTexture)
     {
-        if (worker == null || cameraFrame == null) return;
+        if (worker == null) return;
 
-        // 1. Convert pixels to Tensor
-        TextureConverter.ToTensor(cameraFrame, inputTensor, new TextureTransform());
-        
-        // 2. Run the AI model
+        // TextureConverter handles the TensorFloat creation internally
+        using Tensor inputTensor = TextureConverter.ToTensor(cameraTexture, 640, 640, 3);
         worker.Schedule(inputTensor);
 
-        // 3. Get the raw AI output
-        var output = worker.PeekOutput() as Tensor<float>;
-        
-        // 4. Send the output to the Visualizer to draw the neon boxes
-        if (output != null && visualizer != null) 
+        // We cast the output to TensorFloat to read the numbers
+        TensorFloat output = worker.PeekOutput() as TensorFloat;
+        if (output != null) ProcessDetections(output);
+    }
+
+    void ProcessDetections(TensorFloat output)
+    {
+        foreach (var box in activeBoxes) Destroy(box);
+        activeBoxes.Clear();
+
+        // This moves the data from GPU to CPU so we can read it in C#
+        output.MakeReadable(); 
+        float[] results = output.ToReadOnlyArray();
+
+        if (results.Length > 0 && results[0] > 0.3f)
         {
-            visualizer.UpdateBoxes(output); 
+            GameObject box = Instantiate(boxPrefab, new Vector3(0, 0, 1.5f), Quaternion.identity);
+            activeBoxes.Add(box);
         }
     }
 
-    void OnDestroy()
+    void OnDisable()
     {
         worker?.Dispose();
-        inputTensor?.Dispose();
     }
 }
