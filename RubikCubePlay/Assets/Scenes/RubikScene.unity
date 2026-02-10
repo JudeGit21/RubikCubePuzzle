@@ -960,7 +960,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxPrefab: {fileID: 4507424187826907119, guid: 8bf946cc50869b6459be86861c4fb007,
     type: 3}
-  confidenceThreshold: 0.5
+  confidenceThreshold: 0.2
 --- !u!114 &448469980
 MonoBehaviour:
   m_ObjectHideFlags: 0
