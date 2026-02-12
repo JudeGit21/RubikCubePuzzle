@@ -1,9 +1,8 @@
 using UnityEngine;
-using Unity.Sentis; 
+using Unity.Sentis;
 using System.Collections.Generic;
-using System.Linq; // Added for sotying logic
+using System.Linq;
 using Meta.XR;
-
 
 public class YoloInferenceManager : MonoBehaviour
 {
@@ -11,34 +10,60 @@ public class YoloInferenceManager : MonoBehaviour
     public ModelAsset modelAsset;
 
     [Header("Cube Solving State")]
-    public string[] fullCubeData = new string[54]; // U1..U9, R1..R9, etc.
-    public int currentFaceIndex = 0; // 0=U, 1=R, 2=F, 3=D, 4=L, 5=B
+    public string[] fullCubeData = new string[54];
+    public int currentFaceIndex = 0;
     private string[] faceNames = { "Up", "Right", "Front", "Down", "Left", "Back" };
     private string[] faceCodes = { "U", "R", "F", "D", "L", "B" };
 
     private Model runtimeModel;
+    // Sentis 2.x adjustment: Use 'Worker' instead of 'IWorker'
     private Worker worker;
     private Tensor<float> inputTensor;
 
     private PassthroughCameraAccess cameraAccess;
     private YoloVisualizer visualizer;
-    private PowerShellTTS tts; // Reference to our new voice script
+    private PowerShellTTS tts;
 
     void Start()
     {
-        // ... (Your existing initialization code) ...
-        tts = FindFirstObjectByType<PowerShellTTS>();
+        Debug.Log("AI_Brain: Starting Quest-optimized initialization...");
 
-        // Initial Greeting
-        if (tts != null) tts.Speak("System ready. Please show me the top white face.");
+        if (modelAsset == null)
+        {
+            Debug.LogError("AI_Brain: No ModelAsset assigned!");
+            return;
+        }
+
+        try
+        {
+            // 1. Setup Sentis Pipeline
+            runtimeModel = ModelLoader.Load(modelAsset);
+
+            // Sentis 2.x adjustment: Create worker directly without WorkerFactory
+            worker = new Worker(runtimeModel, BackendType.GPUCompute);
+
+            inputTensor = new Tensor<float>(new TensorShape(1, 3, 640, 640));
+
+            // 2. Locate Components
+            visualizer = GetComponent<YoloVisualizer>();
+            cameraAccess = FindFirstObjectByType<PassthroughCameraAccess>();
+            tts = FindFirstObjectByType<PowerShellTTS>();
+
+            // 3. Feedback logic
+            if (tts != null) tts.Speak("System ready. Please show me the top white face.");
+
+            Debug.Log("AI_Brain: Quest-compatible Worker created.");
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"AI_Brain: Initialization failed: {e.Message}");
+        }
     }
 
-    // Call this via a UI Button or VR Controller Trigger
     public void CaptureCurrentFace()
     {
-        if (visualizer == null) return;
+        if (visualizer == null || tts == null) return;
 
-        // 1. Get detections from the visualizer
         var detections = visualizer.GetActiveDetections();
 
         if (detections.Count < 9)
@@ -47,17 +72,15 @@ public class YoloInferenceManager : MonoBehaviour
             return;
         }
 
-        // 2. Sort stickers into the 3x3 grid (Top-to-Bottom, then Left-to-Right)
+        // Sort stickers into the 3x3 grid (Top-to-Bottom, then Left-to-Right)
         var sortedDetections = detections
-            .OrderBy(d => d.y) // Sort rows
-            .ThenBy(d => d.x)  // Sort columns
+            .OrderBy(d => d.y)
+            .ThenBy(d => d.x)
             .ToList();
 
-        // 3. Map detected colors to Kociemba characters
         int offset = currentFaceIndex * 9;
         for (int i = 0; i < 9; i++)
         {
-            // Note: You'll need to map YOLO labels (e.g., "red") to face codes
             fullCubeData[offset + i] = MapColorToFaceCode(sortedDetections[i].label);
         }
 
@@ -77,8 +100,6 @@ public class YoloInferenceManager : MonoBehaviour
 
     private string MapColorToFaceCode(string colorLabel)
     {
-        // This logic assumes standard color-to-face mapping.
-        // In a pro version, you'd check the center sticker color.
         switch (colorLabel.ToLower())
         {
             case "white": return "U";
@@ -94,9 +115,42 @@ public class YoloInferenceManager : MonoBehaviour
     private void RunKociemba()
     {
         string cubeString = string.Join("", fullCubeData);
-        // Pass 'cubeString' to your Kociemba script here
-        Debug.Log("Final Cube String: " + cubeString);
+        Debug.Log("Final Cube String for Kociemba: " + cubeString);
+        // You can now pass 'cubeString' to your Kociemba solving script.
     }
 
-    // ... (Rest of your existing ProcessFrame and OnDestroy code) ...
+    void Update()
+    {
+        if (cameraAccess != null && cameraAccess.IsPlaying && cameraAccess.IsUpdatedThisFrame)
+        {
+            Texture cameraTexture = cameraAccess.GetTexture();
+            if (cameraTexture != null)
+            {
+                ProcessFrame(cameraTexture);
+            }
+        }
+    }
+
+    public void ProcessFrame(Texture cameraFrame)
+    {
+        if (worker == null || cameraFrame == null) return;
+
+        TextureConverter.ToTensor(cameraFrame, inputTensor, new TextureTransform());
+
+        // Sentis 2.x adjustment: Use 'Schedule' instead of 'Execute'
+        worker.Schedule(inputTensor);
+
+        // Sentis 2.x adjustment: PeekOutput is fine, but cast to Tensor<float>
+        var output = worker.PeekOutput() as Tensor<float>;
+        if (output != null && visualizer != null)
+        {
+            visualizer.UpdateBoxes(output);
+        }
+    }
+
+    void OnDestroy()
+    {
+        worker?.Dispose();
+        inputTensor?.Dispose();
+    }
 }

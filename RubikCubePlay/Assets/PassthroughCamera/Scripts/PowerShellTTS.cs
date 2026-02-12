@@ -1,26 +1,23 @@
 using UnityEngine;
-using System.Diagnostics;
+// No need for System.Diagnostics on Quest if we aren't using PowerShell
 
 public class PowerShellTTS : MonoBehaviour
 {
+    // This is the function called by your YoloInferenceManager
     public void Speak(string text)
     {
-        // Remove single quotes to prevent PowerShell command breaking
-        string safeText = text.Replace("'", "");
+        // 1. Log to the console so you can see it in Logcat/Unity
+        Debug.Log("Quest TTS: " + text);
 
-        string command = $"Add-Type -AssemblyName System.Speech; " +
-                         $"$speak = New-Object System.Speech.Synthesis.SpeechSynthesizer; " +
-                         $"$speak.Speak('{safeText}')";
-
-        ProcessStartInfo psi = new ProcessStartInfo
+        // 2. Prevent crashes on Android
+        try
         {
-            FileName = "powershell.exe",
-            Arguments = $"-ExecutionPolicy Bypass -WindowStyle Hidden -Command \"{command}\"", // Comma here
-            CreateNoWindow = true, // Comma here
-            UseShellExecute = false // No comma needed on the last one
-        };
-
-        Process.Start(psi);
-        UnityEngine.Debug.Log("TTS Speaking: " + text);
+            // Note: Currently, this just logs the text.
+            // To hear actual audio on Quest, you would use Meta's 'TTSService' here.
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("TTS Error: " + e.Message);
+        }
     }
 }
