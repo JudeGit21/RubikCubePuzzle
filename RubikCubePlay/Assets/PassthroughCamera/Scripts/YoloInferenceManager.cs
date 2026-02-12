@@ -46,7 +46,7 @@ public class YoloInferenceManager : MonoBehaviour
         // 4. Send the output to the Visualizer to draw the neon boxes
         if (output != null && visualizer != null) 
         {
-            visualizer.UpdateBoxes(output); 
+            visualizer.UpdateVisuals(output); 
         }
     }
 

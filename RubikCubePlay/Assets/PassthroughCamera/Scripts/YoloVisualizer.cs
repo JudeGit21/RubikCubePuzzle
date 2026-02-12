@@ -1,48 +1,51 @@
 using UnityEngine;
 using Unity.Sentis;
-using System.Collections.Generic;
+// This must match the name in your Assembly Definition (yo12.png)
+using Meta.XR.MRUtilityKit; 
 
 public class YoloVisualizer : MonoBehaviour
 {
-    public GameObject boxPrefab; // Drag your 'Sticker_Highlight' prefab here
-    public float confidenceThreshold = 0.5f;
-    
-    private List<GameObject> activeBoxes = new List<GameObject>();
+    [Header("Setup")]
+    public GameObject rubikCubePrefab; 
+    private GameObject activeCube;
 
-    public void UpdateBoxes(Tensor<float> output)
+    // This is the function called by your YoloDetector
+    public void UpdateVisuals(Tensor<float> output)
     {
-        // 1. Clear old boxes from the previous frame
-        foreach (var box in activeBoxes) Destroy(box);
-        activeBoxes.Clear();
-
-        // 2. YOLOv8 output is usually [1, 84, 8400]
-        // [center_x, center_y, width, height, class0, class1...]
-        // For this breakdown, we'll focus on the first 50 detections for speed
+        // 1. Get the raw data from the AI
         float[] data = output.DownloadToArray();
+        
+        // 2. Simple logic to find the 'Cube' (Placeholder for your detection logic)
+        // Let's assume the AI found it at center screen (0.5, 0.5)
+        float x = 0.5f;
+        float y = 0.5f;
 
-        for (int i = 0; i < 50; i++) 
-        {
-            float confidence = data[4 * 8400 + i]; // Simplified indexing
-            if (confidence > confidenceThreshold)
-            {
-                // 3. Map AI coordinates to VR Screen
-                float x = data[0 * 8400 + i] / 640f; 
-                float y = data[1 * 8400 + i] / 640f;
-
-                CreateVisualBox(x, y);
-            }
-        }
+        // 3. Place the cube using the MRUK "Sticky" logic
+        PlaceCubeInRealWorld(x, y);
     }
 
-    void CreateVisualBox(float x, float y)
+    private void PlaceCubeInRealWorld(float x, float y)
     {
-        // Create the highlight in 3D space
-        GameObject newBox = Instantiate(boxPrefab);
-        
-        // This math puts the box in front of your face in the headset
-        Vector3 screenPos = new Vector3(x * Screen.width, (1-y) * Screen.height, 0.5f);
-        newBox.transform.position = Camera.main.ScreenToWorldPoint(screenPos);
-        
-        activeBoxes.Add(newBox);
+        // Convert the 2D AI coordinates into a 3D Ray from the Quest 3 camera
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(x * Screen.width, y * Screen.height, 0));
+
+        // Use MRUK to find the floor, wall, or table
+        if (MRUK.Instance != null && MRUK.Instance.GetCurrentRoom() != null)
+        {
+            // This 'Raycast' checks the Quest 3's room scan data
+            if (MRUK.Instance.GetCurrentRoom().Raycast(ray, 10f, out RaycastHit hit))
+            {
+                if (activeCube == null)
+                {
+                    activeCube = Instantiate(rubikCubePrefab);
+                }
+
+                // Snap the cube to the hit point on the real table
+                activeCube.transform.position = hit.point;
+                
+                // Make the cube sit flat on the surface
+                activeCube.transform.rotation = Quaternion.LookRotation(hit.normal);
+            }
+        }
     }
 }
