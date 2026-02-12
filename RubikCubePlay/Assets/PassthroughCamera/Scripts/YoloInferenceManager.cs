@@ -1,99 +1,102 @@
 using UnityEngine;
 using Unity.Sentis; 
 using System.Collections.Generic;
-using Meta.XR; 
+using System.Linq; // Added for sotying logic
+using Meta.XR;
+
 
 public class YoloInferenceManager : MonoBehaviour
 {
     [Header("AI Assets")]
     public ModelAsset modelAsset;
-    
+
+    [Header("Cube Solving State")]
+    public string[] fullCubeData = new string[54]; // U1..U9, R1..R9, etc.
+    public int currentFaceIndex = 0; // 0=U, 1=R, 2=F, 3=D, 4=L, 5=B
+    private string[] faceNames = { "Up", "Right", "Front", "Down", "Left", "Back" };
+    private string[] faceCodes = { "U", "R", "F", "D", "L", "B" };
+
     private Model runtimeModel;
     private Worker worker;
-    private Tensor<float> inputTensor; 
+    private Tensor<float> inputTensor;
 
     private PassthroughCameraAccess cameraAccess;
     private YoloVisualizer visualizer;
+    private PowerShellTTS tts; // Reference to our new voice script
 
     void Start()
     {
-        Debug.Log("AI_Brain: Starting initialization...");
+        // ... (Your existing initialization code) ...
+        tts = FindFirstObjectByType<PowerShellTTS>();
 
-        if (modelAsset == null)
+        // Initial Greeting
+        if (tts != null) tts.Speak("System ready. Please show me the top white face.");
+    }
+
+    // Call this via a UI Button or VR Controller Trigger
+    public void CaptureCurrentFace()
+    {
+        if (visualizer == null) return;
+
+        // 1. Get detections from the visualizer
+        var detections = visualizer.GetActiveDetections();
+
+        if (detections.Count < 9)
         {
-            Debug.LogError("AI_Brain: No ModelAsset assigned in the Inspector!");
+            tts.Speak($"I only see {detections.Count} stickers. Please align the cube.");
             return;
         }
 
-        try 
+        // 2. Sort stickers into the 3x3 grid (Top-to-Bottom, then Left-to-Right)
+        var sortedDetections = detections
+            .OrderBy(d => d.y) // Sort rows
+            .ThenBy(d => d.x)  // Sort columns
+            .ToList();
+
+        // 3. Map detected colors to Kociemba characters
+        int offset = currentFaceIndex * 9;
+        for (int i = 0; i < 9; i++)
         {
-            // 1. Setup Sentis Pipeline
-            runtimeModel = ModelLoader.Load(modelAsset);
-            worker = new Worker(runtimeModel, BackendType.GPUCompute);
-            
-            // Initialize the input tensor 'bucket' (1 batch, 3 channels, 640x640)
-            inputTensor = new Tensor<float>(new TensorShape(1, 3, 640, 640));
-            
-            // 2. Locate Components
-            visualizer = GetComponent<YoloVisualizer>();
-            cameraAccess = FindFirstObjectByType<PassthroughCameraAccess>();
-
-            // 3. Find and Color the Child Cube
-            Transform childCube = transform.Find("Cube"); 
-            if (childCube != null)
-            {
-                // Set the color to GREEN to show the AI logic is loaded
-                childCube.GetComponent<Renderer>().material.color = Color.green;
-                Debug.Log("AI_Brain: Found child cube and set color to Green.");
-            }
-            else
-            {
-                Debug.LogWarning("AI_Brain: Could not find a child object named 'Cube'!");
-            }
-
-            Debug.Log("AI_Brain: Worker created and pipeline ready.");
+            // Note: You'll need to map YOLO labels (e.g., "red") to face codes
+            fullCubeData[offset + i] = MapColorToFaceCode(sortedDetections[i].label);
         }
-        catch (System.Exception e)
+
+        tts.Speak($"{faceNames[currentFaceIndex]} face captured.");
+        currentFaceIndex++;
+
+        if (currentFaceIndex < 6)
         {
-            Debug.LogError($"AI_Brain: Error during Start: {e.Message}");
+            tts.Speak($"Please turn to the {faceNames[currentFaceIndex]} face.");
+        }
+        else
+        {
+            tts.Speak("Scanning complete. Calculating solution.");
+            RunKociemba();
         }
     }
 
-    void Update()
+    private string MapColorToFaceCode(string colorLabel)
     {
-        // Check if the Passthrough script has a new frame ready for us
-        if (cameraAccess != null && cameraAccess.IsPlaying && cameraAccess.IsUpdatedThisFrame)
+        // This logic assumes standard color-to-face mapping.
+        // In a pro version, you'd check the center sticker color.
+        switch (colorLabel.ToLower())
         {
-            Texture cameraTexture = cameraAccess.GetTexture();
-            if (cameraTexture != null)
-            {
-                ProcessFrame(cameraTexture);
-            }
+            case "white": return "U";
+            case "red": return "F";
+            case "blue": return "R";
+            case "orange": return "B";
+            case "green": return "L";
+            case "yellow": return "D";
+            default: return "U";
         }
     }
 
-    public void ProcessFrame(Texture cameraFrame)
+    private void RunKociemba()
     {
-        if (worker == null || cameraFrame == null) return;
-
-        // Fill the inputTensor with pixels from the camera
-        TextureConverter.ToTensor(cameraFrame, inputTensor, new TextureTransform());
-        
-        // Execute the AI model
-        worker.Schedule(inputTensor);
-
-        // Send output to the visualizer
-        var output = worker.PeekOutput() as Tensor<float>;
-        if (output != null && visualizer != null) 
-        {
-            visualizer.UpdateBoxes(output); 
-        }
+        string cubeString = string.Join("", fullCubeData);
+        // Pass 'cubeString' to your Kociemba script here
+        Debug.Log("Final Cube String: " + cubeString);
     }
 
-    void OnDestroy()
-    {
-        // Clean up memory
-        worker?.Dispose();
-        inputTensor?.Dispose();
-    }
+    // ... (Rest of your existing ProcessFrame and OnDestroy code) ...
 }
