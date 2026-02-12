@@ -1,51 +1,91 @@
 using UnityEngine;
 using Unity.Sentis;
-// This must match the name in your Assembly Definition (yo12.png)
-using Meta.XR.MRUtilityKit; 
+using System.Collections.Generic;
+
+// Simple class to hold detection data for the solver
+public class DetectionData
+{
+    public float x;
+    public float y;
+    public string label;
+}
 
 public class YoloVisualizer : MonoBehaviour
 {
-    [Header("Setup")]
-    public GameObject rubikCubePrefab; 
-    private GameObject activeCube;
+    public GameObject boxPrefab;
+    [Range(0, 1)]
+    public float confidenceThreshold = 0.5f;
 
-    // This is the function called by your YoloDetector
-    public void UpdateVisuals(Tensor<float> output)
+    private List<GameObject> activeBoxes = new List<GameObject>();
+
+    // 1. UPDATED LABELS: These must match the order your YOLO model was trained on
+    // Usually: white, yellow, red, orange, blue, green
+    private string[] labels = { "white", "yellow", "red", "orange", "blue", "green" };
+
+    // 2. DATA STORAGE: This is what the Inference Manager will read
+    public List<DetectionData> lastFrameDetections = new List<DetectionData>();
+
+    public void UpdateBoxes(Tensor<float> output)
     {
-        // 1. Get the raw data from the AI
+        // Clear old visual boxes and data
+        foreach (var box in activeBoxes) Destroy(box);
+        activeBoxes.Clear();
+        lastFrameDetections.Clear();
+
         float[] data = output.DownloadToArray();
-        
-        // 2. Simple logic to find the 'Cube' (Placeholder for your detection logic)
-        // Let's assume the AI found it at center screen (0.5, 0.5)
-        float x = 0.5f;
-        float y = 0.5f;
 
-        // 3. Place the cube using the MRUK "Sticky" logic
-        PlaceCubeInRealWorld(x, y);
-    }
+        int totalDetections = 8400;
+        int totalAttributes = 4 + labels.Length; // 4 coordinates + number of colors
 
-    private void PlaceCubeInRealWorld(float x, float y)
-    {
-        // Convert the 2D AI coordinates into a 3D Ray from the Quest 3 camera
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(x * Screen.width, y * Screen.height, 0));
-
-        // Use MRUK to find the floor, wall, or table
-        if (MRUK.Instance != null && MRUK.Instance.GetCurrentRoom() != null)
+        for (int i = 0; i < totalDetections; i++)
         {
-            // This 'Raycast' checks the Quest 3's room scan data
-            if (MRUK.Instance.GetCurrentRoom().Raycast(ray, 10f, out RaycastHit hit))
-            {
-                if (activeCube == null)
-                {
-                    activeCube = Instantiate(rubikCubePrefab);
-                }
+            float maxScore = 0;
+            int classId = -1;
 
-                // Snap the cube to the hit point on the real table
-                activeCube.transform.position = hit.point;
-                
-                // Make the cube sit flat on the surface
-                activeCube.transform.rotation = Quaternion.LookRotation(hit.normal);
+            for (int c = 4; c < totalAttributes; c++)
+            {
+                float score = data[c * totalDetections + i];
+                if (score > maxScore)
+                {
+                    maxScore = score;
+                    classId = c - 4;
+                }
+            }
+
+            if (maxScore > confidenceThreshold)
+            {
+                float x = data[0 * totalDetections + i] / 640f;
+                float y = data[1 * totalDetections + i] / 640f;
+                float w = data[2 * totalDetections + i] / 640f;
+                float h = data[3 * totalDetections + i] / 640f;
+
+                // Store the data for the solver
+                lastFrameDetections.Add(new DetectionData { x = x, y = y, label = labels[classId] });
+
+                // Create the visual box in the VR view
+                CreateVisualBox(x, y, w, h, labels[classId]);
+
+                if (activeBoxes.Count > 20) break; // Increased to 20 to ensure all 9 stickers show
             }
         }
+    }
+
+    // This helper method allows the InferenceManager to get the data
+    public List<DetectionData> GetActiveDetections()
+    {
+        return lastFrameDetections;
+    }
+
+    void CreateVisualBox(float x, float y, float w, float h, string labelName)
+    {
+        float depth = 1.0f;
+        Vector3 screenPos = new Vector3(x * Screen.width, (1 - y) * Screen.height, depth);
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+
+        GameObject newBox = Instantiate(boxPrefab, worldPos, Camera.main.transform.rotation);
+        newBox.transform.localScale = new Vector3(w * 2, h * 2, 0.01f);
+        newBox.name = $"Sticker_{labelName}";
+
+        activeBoxes.Add(newBox);
     }
 }
