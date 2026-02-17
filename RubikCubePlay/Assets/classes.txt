@@ -1,7 +1,0 @@
-Red
-Blue
-Green
-White
-Yellow
-Orange
-CubeFace
