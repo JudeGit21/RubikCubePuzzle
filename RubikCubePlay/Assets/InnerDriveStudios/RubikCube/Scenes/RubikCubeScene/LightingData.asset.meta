@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e702141357af41a4abbcafac43ac78ad
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 112000000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 180681
+  packageName: Interactive Rubik Cube (x * x * x)
+  packageVersion: 1.0
+  assetPath: Assets/InnerDriveStudios/RubikCube/Scenes/RubikCubeScene/LightingData.asset
+  uploadId: 394576

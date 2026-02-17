@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6163c3cae3fce6a45890d7271675a0c2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 180681
+  packageName: Interactive Rubik Cube (x * x * x)
+  packageVersion: 1.0
+  assetPath: Assets/InnerDriveStudios/RubikCube/Materials/CubletSeparateMaterials/DownYellow.mat
+  uploadId: 394576
