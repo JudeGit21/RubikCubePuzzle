@@ -1,31 +1,41 @@
-// Copyright (c) Meta Platforms, Inc. and affiliates.
-
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.Collections;
+using System.Collections.Generic;
 
-namespace PassthroughCameraSamples
+// This check prevents the "CS0246" error from stopping the whole build
+#if UNITY_ANDROID && !UNITY_EDITOR
+using Oculus.VR; 
+#endif
+
+public class RequestPermissionsOnce : MonoBehaviour
 {
-    internal static class RequestPermissionsOnce
+    void Start()
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        private static void AfterSceneLoad()
-        {
-            bool permissionsRequestedOnce = false;
-            SceneManager.sceneLoaded += (scene, _) =>
+        #if UNITY_ANDROID && !UNITY_EDITOR
+        RequestSpatialPermissions();
+        #endif
+    }
+
+    void RequestSpatialPermissions()
+    {
+        string[] permissions = {
+            "com.oculus.permission.USE_SCENE",
+            "android.permission.CAMERA"
+        };
+
+        #if UNITY_ANDROID && !UNITY_EDITOR
+        try {
+            if (OVRPermissionsRequester.IsPermissionGranted(permissions[0]))
             {
-                if (scene.name != "StartScene")
-                {
-                    if (!permissionsRequestedOnce)
-                    {
-                        permissionsRequestedOnce = true;
-                        OVRPermissionsRequester.Request(new[]
-                        {
-                            OVRPermissionsRequester.Permission.Scene,
-                            OVRPermissionsRequester.Permission.PassthroughCameraAccess
-                        });
-                    }
-                }
-            };
+                Debug.Log("Permissions already granted.");
+            }
+            else
+            {
+                OVRPermissionsRequester.RequestPermissions(permissions);
+            }
+        } catch (System.Exception e) {
+            Debug.LogError("Oculus VR Reference missing in Build: " + e.Message);
         }
+        #endif
     }
 }
