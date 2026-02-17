@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c405cd90383e5bb4cadc6cea77441bfe
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 180681
+  packageName: Interactive Rubik Cube (x * x * x)
+  packageVersion: 1.0
+  assetPath: Assets/InnerDriveStudios/RubikCube/Prefabs/BackgroundCanvas.prefab
+  uploadId: 394576
