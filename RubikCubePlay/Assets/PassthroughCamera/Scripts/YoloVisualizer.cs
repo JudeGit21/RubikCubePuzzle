@@ -1,83 +1,51 @@
 using UnityEngine;
 using Unity.Sentis;
-using System.Collections.Generic;
+// This must match the name in your Assembly Definition (yo12.png)
+using Meta.XR.MRUtilityKit; 
 
 public class YoloVisualizer : MonoBehaviour
 {
-    public GameObject boxPrefab; // Drag your 'Sticker_Highlight' prefab here
-    [Range(0, 1)]
-    public float confidenceThreshold = 0.5f;
-    
-    private List<GameObject> activeBoxes = new List<GameObject>();
+    [Header("Setup")]
+    public GameObject rubikCubePrefab; 
+    private GameObject activeCube;
 
-    // These labels match the standard COCO dataset used by YOLOv8
-    private string[] labels = { "person", "bicycle", "car", "motorcycle", "airplane", "bus", "train", "truck", "boat", "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat", "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella", "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat", "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup", "fork", "knife", "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza", "donut", "cake", "chair", "couch", "potted plant", "bed", "dining table", "toilet", "tv", "laptop", "mouse", "remote", "keyboard", "cell phone", "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors", "teddy bear", "hair drier", "toothbrush" };
-
-    public void UpdateBoxes(Tensor<float> output)
+    // This is the function called by your YoloDetector
+    public void UpdateVisuals(Tensor<float> output)
     {
-        // 1. Clear old boxes
-        foreach (var box in activeBoxes) Destroy(box);
-        activeBoxes.Clear();
-
-        // 2. Download data from GPU
+        // 1. Get the raw data from the AI
         float[] data = output.DownloadToArray();
         
-        // YOLOv8n constants
-        int totalDetections = 8400; 
-        int totalAttributes = 84; // 4 coordinates + 80 classes
+        // 2. Simple logic to find the 'Cube' (Placeholder for your detection logic)
+        // Let's assume the AI found it at center screen (0.5, 0.5)
+        float x = 0.5f;
+        float y = 0.5f;
 
-        // 3. Iterate through detections (limiting to 100 for performance)
-        for (int i = 0; i < totalDetections; i++) 
-        {
-            float maxScore = 0;
-            int classId = -1;
-
-            // Find the highest confidence class for this detection
-            for (int c = 4; c < totalAttributes; c++)
-            {
-                float score = data[c * totalDetections + i];
-                if (score > maxScore)
-                {
-                    maxScore = score;
-                    classId = c - 4;
-                }
-            }
-
-            if (maxScore > confidenceThreshold)
-            {
-                // Normalize 640x640 AI coordinates to 0.0 - 1.0 range
-                float x = data[0 * totalDetections + i] / 640f; 
-                float y = data[1 * totalDetections + i] / 640f;
-                float w = data[2 * totalDetections + i] / 640f;
-                float h = data[3 * totalDetections + i] / 640f;
-
-                CreateVisualBox(x, y, w, h, labels[classId]);
-                
-                // Don't overwhelm the VR view
-                if (activeBoxes.Count > 15) break;
-            }
-        }
+        // 3. Place the cube using the MRUK "Sticky" logic
+        PlaceCubeInRealWorld(x, y);
     }
 
-    void CreateVisualBox(float x, float y, float w, float h, string labelName)
+    private void PlaceCubeInRealWorld(float x, float y)
     {
-        // Place the box 1.0 meters in front of the camera
-        float depth = 1.0f; 
+        // Convert the 2D AI coordinates into a 3D Ray from the Quest 3 camera
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(x * Screen.width, y * Screen.height, 0));
 
-        // Convert normalized coordinates to screen space
-        // YOLO x/y is center, Screen expects center for WorldPoint conversion
-        Vector3 screenPos = new Vector3(x * Screen.width, (1 - y) * Screen.height, depth);
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+        // Use MRUK to find the floor, wall, or table
+        if (MRUK.Instance != null && MRUK.Instance.GetCurrentRoom() != null)
+        {
+            // This 'Raycast' checks the Quest 3's room scan data
+            if (MRUK.Instance.GetCurrentRoom().Raycast(ray, 10f, out RaycastHit hit))
+            {
+                if (activeCube == null)
+                {
+                    activeCube = Instantiate(rubikCubePrefab);
+                }
 
-        GameObject newBox = Instantiate(boxPrefab, worldPos, Camera.main.transform.rotation);
-        
-        // Scale the box based on detected width/height
-        // Adjust these multipliers if the neon boxes are too big or small
-        newBox.transform.localScale = new Vector3(w * 2, h * 2, 0.01f);
-        
-        // Optional: Change the name so you can see what it is in the Hierarchy
-        newBox.name = $"Detected_{labelName}";
-
-        activeBoxes.Add(newBox);
+                // Snap the cube to the hit point on the real table
+                activeCube.transform.position = hit.point;
+                
+                // Make the cube sit flat on the surface
+                activeCube.transform.rotation = Quaternion.LookRotation(hit.normal);
+            }
+        }
     }
 }

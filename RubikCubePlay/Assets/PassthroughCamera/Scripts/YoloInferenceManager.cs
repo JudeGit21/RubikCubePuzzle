@@ -86,7 +86,7 @@ public class YoloInferenceManager : MonoBehaviour
         var output = worker.PeekOutput() as Tensor<float>;
         if (output != null && visualizer != null) 
         {
-            visualizer.UpdateBoxes(output); 
+            visualizer.UpdateVisuals(output); 
         }
     }
 
