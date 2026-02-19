@@ -1,8 +1,8 @@
-using UnityEngine;
+/* using UnityEngine;
 using Unity.Sentis;
 using System.Collections.Generic;
 using System.Linq;
-using Meta.XR;
+
 
 public class YoloInferenceManager : MonoBehaviour
 {
@@ -20,7 +20,8 @@ public class YoloInferenceManager : MonoBehaviour
     private Worker worker;
     private Tensor<float> inputTensor;
 
-    private PassthroughCameraAccess cameraAccess;
+   // private LaptopCameraAccess cameraAccess;
+
     private YoloVisualizer visualizer;
     private PowerShellTTS tts;
 
@@ -46,7 +47,8 @@ public class YoloInferenceManager : MonoBehaviour
 
             // 2. Locate Components
             visualizer = GetComponent<YoloVisualizer>();
-            cameraAccess = FindFirstObjectByType<PassthroughCameraAccess>();
+            cameraAccess = FindFirstObjectByType<LaptopCameraAccess>();
+
             tts = FindFirstObjectByType<PowerShellTTS>();
 
             // 3. Feedback logic
@@ -129,6 +131,11 @@ public class YoloInferenceManager : MonoBehaviour
                 ProcessFrame(cameraTexture);
             }
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CaptureCurrentFace();
+        }
+
     }
 
     public void ProcessFrame(Texture cameraFrame)
@@ -146,6 +153,8 @@ public class YoloInferenceManager : MonoBehaviour
         {
             visualizer.UpdateBoxes(output);
         }
+        
+
     }
 
     void OnDestroy()
@@ -153,4 +162,4 @@ public class YoloInferenceManager : MonoBehaviour
         worker?.Dispose();
         inputTensor?.Dispose();
     }
-}
+} */
