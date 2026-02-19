@@ -53,7 +53,8 @@ public class RubikFaceScanner : MonoBehaviour
         Debug.Log("Press R to reset scanning.");
     }
 
-    void Update()
+    async void Update()
+
     {
         if (Input.GetKeyDown(resetKey))
         {
@@ -118,11 +119,12 @@ public class RubikFaceScanner : MonoBehaviour
         Debug.Log("Final Cube String for Kociemba: " + cubeString);
 
         // Call solver (static helper class, NOT a MonoBehaviour component)
-        string info;
-        string solution = KociembaSolver.Solve(cubeString, out info);
+        // Add "async" to Update signature:  void Update()  ->  async void Update()
+        var result = await KociembaSolver.SolveAsync(cubeString, maxDepth: 21, timeOut: 10, useSeparator: false);
 
-        Debug.Log("Solver info: " + info);
-        Debug.Log("Moves to solve: " + solution);
+        Debug.Log("Solver info: " + result.info);
+        Debug.Log("Moves to solve: " + result.solution);
+
     }
 
     void ResetScan()
