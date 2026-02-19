@@ -3102,6 +3102,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1748868316715821956, guid: abfaad578d05e4a09838223134c41c46,
         type: 3}
+      propertyPath: TargetMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: e0f39d9ad83ea3d488b7f04667756f87, type: 2}
+    - target: {fileID: 1748868316715821956, guid: abfaad578d05e4a09838223134c41c46,
+        type: 3}
       propertyPath: RequestedResolution.x
       value: 640
       objectReference: {fileID: 0}
