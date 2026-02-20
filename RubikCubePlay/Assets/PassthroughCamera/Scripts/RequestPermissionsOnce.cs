@@ -1,41 +1,44 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
-// This check prevents the "CS0246" error from stopping the whole build
-#if UNITY_ANDROID && !UNITY_EDITOR
-using Oculus.VR; 
+#if UNITY_ANDROID
+using UnityEngine.Android;
 #endif
 
 public class RequestPermissionsOnce : MonoBehaviour
 {
     void Start()
     {
-        #if UNITY_ANDROID && !UNITY_EDITOR
-        RequestSpatialPermissions();
-        #endif
+#if UNITY_ANDROID
+        RequestPermissions();
+#endif
     }
 
-    void RequestSpatialPermissions()
+    void RequestPermissions()
     {
-        string[] permissions = {
-            "com.oculus.permission.USE_SCENE",
-            "android.permission.CAMERA"
-        };
-
-        #if UNITY_ANDROID && !UNITY_EDITOR
-        try {
-            if (OVRPermissionsRequester.IsPermissionGranted(permissions[0]))
-            {
-                Debug.Log("Permissions already granted.");
-            }
-            else
-            {
-                OVRPermissionsRequester.RequestPermissions(permissions);
-            }
-        } catch (System.Exception e) {
-            Debug.LogError("Oculus VR Reference missing in Build: " + e.Message);
+#if UNITY_ANDROID
+        // Camera permission (needed for YOLO)
+        if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
+        {
+            Debug.Log("Requesting Camera Permission...");
+            Permission.RequestUserPermission(Permission.Camera);
         }
-        #endif
+        else
+        {
+            Debug.Log("Camera Permission already granted.");
+        }
+
+        // Scene permission (Meta Quest MR)
+        string scenePermission = "com.oculus.permission.USE_SCENE";
+
+        if (!Permission.HasUserAuthorizedPermission(scenePermission))
+        {
+            Debug.Log("Requesting Scene Permission...");
+            Permission.RequestUserPermission(scenePermission);
+        }
+        else
+        {
+            Debug.Log("Scene Permission already granted.");
+        }
+#endif
     }
 }
