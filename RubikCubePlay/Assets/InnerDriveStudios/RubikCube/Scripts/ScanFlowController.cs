@@ -96,26 +96,48 @@ public class ScanFlowController : MonoBehaviour
         if (isSolving) yield break;
         isSolving = true;
 
-        yield return null;
-
         string info = "";
         string solution = null;
 
-        var t = new Thread(() => { solution = KociembaSolver.Solve(cubeString, out info); });
+        bool done = false;
+
+        // Start background work
+        var t = new Thread(() =>
+        {
+            try
+            {
+                solution = KociembaSolver.Solve(cubeString, out info);
+            }
+            finally
+            {
+                done = true;
+            }
+        });
+
+        t.IsBackground = true;   
         t.Start();
 
-        while (t.IsAlive) yield return null;
-
-        Debug.Log("Kociemba info: " + info);
-        if (string.IsNullOrWhiteSpace(solution))
+        // Wait until done OR until play mode stops / object disabled
+        while (!done)
         {
-            Debug.Log("Cube is already SOLVED ");
+            if (!Application.isPlaying) break;
+            yield return null;
         }
-        else
+
+        if (Application.isPlaying)
         {
-            Debug.Log("Kociemba solution: " + solution);
+            Debug.Log("Kociemba info: " + info);
+            if (string.IsNullOrWhiteSpace(solution))
+                Debug.Log("Cube is already SOLVED ");
+            else
+                Debug.Log("Kociemba solution: " + solution);
         }
 
         isSolving = false;
+    }
+    private void OnDisable()
+    {
+        isSolving = false;
+        StopAllCoroutines();
     }
 }
