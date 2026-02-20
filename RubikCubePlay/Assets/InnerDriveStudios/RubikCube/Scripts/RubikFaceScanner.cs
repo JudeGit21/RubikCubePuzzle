@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Threading;
+using System.Linq; // for Count
 
 /// <summary>
 /// Scans a Rubik's Cube face-by-face from a webcam ROI (scanFrame) and produces a 54-char
@@ -53,7 +56,7 @@ public class RubikFaceScanner : MonoBehaviour
         Debug.Log("Press R to reset scanning.");
     }
 
-    async void Update()
+    void Update()
 
     {
         if (Input.GetKeyDown(resetKey))
@@ -118,13 +121,90 @@ public class RubikFaceScanner : MonoBehaviour
 
         Debug.Log("Final Cube String for Kociemba: " + cubeString);
 
-        // Call solver (static helper class, NOT a MonoBehaviour component)
-        // Add "async" to Update signature:  void Update()  ->  async void Update()
-        var result = await KociembaSolver.SolveAsync(cubeString, maxDepth: 21, timeOut: 10, useSeparator: false);
+        // Optional: log counts (se steg 3 nedan)
+        LogFaceletCounts(cubeString);
 
-        Debug.Log("Solver info: " + result.info);
-        Debug.Log("Moves to solve: " + result.solution);
+        void LogFaceletCounts(string cubeString)
+        {
+            int countU = cubeString.Count(c => c == 'U');
+            int countR = cubeString.Count(c => c == 'R');
+            int countF = cubeString.Count(c => c == 'F');
+            int countD = cubeString.Count(c => c == 'D');
+            int countL = cubeString.Count(c => c == 'L');
+            int countB = cubeString.Count(c => c == 'B');
 
+            Debug.Log("Counts => U:" + countU + " R:" + countR + " F:" + countF + " D:" + countD + " L:" + countL + " B:" + countB);
+        }
+
+        LogFaceletCounts(cubeString);
+        StartCoroutine(SolveCubeAsync(cubeString));
+        return;
+
+      
+
+
+
+    }
+
+    private bool isSolving = false;
+
+    IEnumerator SolveCubeAsync(string cubeString)
+    {
+        if (isSolving) yield break;
+        isSolving = true;
+
+        // Let Unity render one frame before heavy work starts
+        yield return null;
+
+        string info = "";
+        string solution = null;
+
+        Thread solverThread = new Thread(() =>
+        {
+            solution = KociembaSolver.Solve(cubeString, out info);
+        });
+
+        solverThread.Start();
+
+        // While solver runs, keep Unity responsive
+        while (solverThread.IsAlive)
+            yield return null;
+
+        Debug.Log("Solver info: " + info);
+        Debug.Log("Moves to solve: " + solution);
+
+        isSolving = false;
+    }
+
+    public bool TryScanCurrentFace(out string[] colors9, out string reason)
+    {
+        colors9 = null;
+        reason = null;
+
+        var cam = cameraAccess != null ? cameraAccess.GetTexture() as WebCamTexture : null;
+        if (cam == null || cam.width < 16)
+        {
+            reason = "Webcam not ready.";
+            return false;
+        }
+
+        var face = Scan3x3(cam);
+        if (face == null || face.Length != 9)
+        {
+            reason = "Scan returned invalid face.";
+            return false;
+        }
+
+        int unknownCount = 0;
+        for (int i = 0; i < 9; i++) if (face[i] == "unknown") unknownCount++;
+        if (unknownCount > 2)
+        {
+            reason = $"Too many unknown stickers ({unknownCount}/9).";
+            return false;
+        }
+
+        colors9 = face;
+        return true;
     }
 
     void ResetScan()
