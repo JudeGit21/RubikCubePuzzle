@@ -1591,8 +1591,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 639714233609a3049a642bc857946daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yoloModel: {fileID: 0}
-  visualizer: {fileID: 0}
+  yoloModel: {fileID: 5022602860645237092, guid: 1385803e42d29ee4ea560816d5e6005c,
+    type: 3}
+  visualizer: {fileID: 1230243597}
 --- !u!1 &593050027 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7752563439712129205, guid: 66d40221d132d04499855da9ce315f20,
@@ -1935,7 +1936,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5100244822137463363, guid: 9fdb34c58e4434641a3f2fa24392c401,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1254362826}
   m_SourcePrefab: {fileID: 100100000, guid: 9fdb34c58e4434641a3f2fa24392c401, type: 3}
 --- !u!1 &798337360
 GameObject:
@@ -2424,6 +2429,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Environment: {fileID: 1241364534}
   fadeSpeed: 1
+--- !u!1 &1254362822 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5100244822137463363, guid: 9fdb34c58e4434641a3f2fa24392c401,
+    type: 3}
+  m_PrefabInstance: {fileID: 795084014}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1254362826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254362822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c9a61d4dcc2425488bf99b297377df8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: -0, y: -0.05, z: 1}
+  stick: 1
 --- !u!1 &1257756836 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3032334164665928405, guid: 66d40221d132d04499855da9ce315f20,
