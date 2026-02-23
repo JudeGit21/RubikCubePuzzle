@@ -1,31 +1,39 @@
 using UnityEngine;
 using Meta.XR; // This matches the namespace in the script you provided
 
-public class YoloFeedConnector : MonoBehaviour 
+public class YoloFeedConnector : MonoBehaviour
 {
     [Header("Connect your YOLO script here")]
-    public YoloDetector yoloBrain; 
-    
+    public YoloDetector yoloBrain;
+
     private PassthroughCameraAccess cameraAccess;
 
-    void Start() {
+    void Start()
+    {
         // Find the camera component in your scene
         cameraAccess = FindFirstObjectByType<PassthroughCameraAccess>();
-        
-        if (cameraAccess == null) {
+
+        if (cameraAccess == null)
+        {
             Debug.LogError("YoloFeedConnector: PassthroughCameraAccess not found in Hierarchy!");
         }
     }
 
-    void Update() {
-        // Using the public 'IsPlaying' property and 'GetTexture()' from your script
-        if (cameraAccess != null && cameraAccess.IsPlaying) {
-            Texture liveTexture = cameraAccess.GetTexture();
-            
-            if (liveTexture != null && yoloBrain != null) {
-                // Send the texture to your AI brain
-                yoloBrain.DetectCube(liveTexture as RenderTexture);
-            }
+    void Update()
+    {
+        Texture liveTexture = cameraAccess.GetTexture();
+        Debug.Log($"[YoloFeedConnector] Camera frame: {liveTexture?.width}x{liveTexture?.height}");
+
+        if (liveTexture != null && yoloBrain != null)
+        {
+            // Create a temporary 640x640 RenderTexture
+            RenderTexture rt = RenderTexture.GetTemporary(640, 640, 0, RenderTextureFormat.ARGB32);
+            Graphics.Blit(liveTexture, rt);
+
+            // Send it to YOLO
+            yoloBrain.DetectCube(rt);
+
+            RenderTexture.ReleaseTemporary(rt);
         }
     }
 }

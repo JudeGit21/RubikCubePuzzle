@@ -59,6 +59,8 @@ public class YoloInferenceManager : MonoBehaviour
         {
             // Note: You'll need to map YOLO labels (e.g., "red") to face codes
             fullCubeData[offset + i] = MapColorToFaceCode(sortedDetections[i].label);
+
+            Debug.Log($"[YoloInferenceManager] Sticker {i}: {sortedDetections[i].label} mapped to {fullCubeData[offset + i]}");
         }
 
         tts.Speak($"{faceNames[currentFaceIndex]} face captured.");

@@ -8,7 +8,7 @@ public class DetectionData
     public float x;
     public float y;
     public string label;
-}
+    }
 
 public class YoloVisualizer : MonoBehaviour
 {
@@ -27,6 +27,7 @@ public class YoloVisualizer : MonoBehaviour
 
     public void UpdateBoxes(Tensor<float> output)
     {
+
         // Clear old visual boxes and data
         foreach (var box in activeBoxes) Destroy(box);
         activeBoxes.Clear();
@@ -61,6 +62,8 @@ public class YoloVisualizer : MonoBehaviour
 
                 // Store the data for the solver
                 lastFrameDetections.Add(new DetectionData { x = x, y = y, label = labels[classId] });
+
+                Debug.Log($"[YoloVisualizer] Detected {labels[classId]} at ({x:F2},{y:F2}) with confidence {maxScore:F2}");
 
                 // Create the visual box in the VR view
                 CreateVisualBox(x, y, w, h, labels[classId]);
