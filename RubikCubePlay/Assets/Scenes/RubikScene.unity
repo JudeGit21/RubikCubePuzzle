@@ -1269,7 +1269,8 @@ MonoBehaviour:
   - 
   - 
   - 
-  currentFaceIndex: 0
+  visualizer: {fileID: 0}
+  tts: {fileID: 0}
 --- !u!4 &448469981
 Transform:
   m_ObjectHideFlags: 0
@@ -3789,7 +3790,7 @@ PrefabInstance:
     - target: {fileID: 8925207555904468295, guid: 66d40221d132d04499855da9ce315f20,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1160
+      value: -660
       objectReference: {fileID: 0}
     - target: {fileID: 9163648765846189281, guid: 66d40221d132d04499855da9ce315f20,
         type: 3}
