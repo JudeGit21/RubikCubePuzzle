@@ -1,11 +1,5 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-
-// This check prevents the "CS0246" error from stopping the whole build
-#if UNITY_ANDROID && !UNITY_EDITOR
-using Oculus.VR; 
-#endif
+using UnityEngine.Android; // Use the standard Unity Android library instead of Oculus.VR
 
 public class RequestPermissionsOnce : MonoBehaviour
 {
@@ -18,24 +12,20 @@ public class RequestPermissionsOnce : MonoBehaviour
 
     void RequestSpatialPermissions()
     {
-        string[] permissions = {
-            "com.oculus.permission.USE_SCENE",
-            "android.permission.CAMERA"
-        };
+        // These are the standard strings the Quest looks for
+        string scenePermission = "com.oculus.permission.USE_SCENE";
+        string cameraPermission = Permission.Camera; // Standard Android Camera permission
 
-        #if UNITY_ANDROID && !UNITY_EDITOR
-        try {
-            if (OVRPermissionsRequester.IsPermissionGranted(permissions[0]))
-            {
-                Debug.Log("Permissions already granted.");
-            }
-            else
-            {
-                OVRPermissionsRequester.RequestPermissions(permissions);
-            }
-        } catch (System.Exception e) {
-            Debug.LogError("Oculus VR Reference missing in Build: " + e.Message);
+        // 1. Request Camera for YOLO
+        if (!Permission.HasUserAuthorizedPermission(cameraPermission))
+        {
+            Permission.RequestUserPermission(cameraPermission);
         }
-        #endif
+
+        // 2. Request Scene for MRUK
+        if (!Permission.HasUserAuthorizedPermission(scenePermission))
+        {
+            Permission.RequestUserPermission(scenePermission);
+        }
     }
 }
