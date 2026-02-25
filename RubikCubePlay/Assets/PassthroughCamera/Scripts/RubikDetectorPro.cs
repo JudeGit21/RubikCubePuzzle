@@ -1,31 +1,32 @@
 using UnityEngine;
 using Unity.Sentis;
 using Meta.XR.MRUtilityKit;
-using Meta.XR; // Required for PassthroughCameraAccess
+using Meta.XR; 
 
 public class RubikDetectorPro : MonoBehaviour
 {
     [Header("AI Configuration")]
     public ModelAsset yoloModel;
-    public float confidenceThreshold = 0.5f;
+    [Range(0, 1)] public float confidenceThreshold = 0.5f;
 
-    [Header("World Objects")]
+    [Header("Instructor Settings")]
     public GameObject digitalCubePrefab;
-    private GameObject activeCube;
+    [Tooltip("How high (in meters) the digital cube floats above the real one")]
+    public float hoverHeight = 0.25f; 
+    [Tooltip("How smoothly the cube follows your hand (1 = slow, 20 = instant)")]
+    public float smoothSpeed = 10f;
 
+    private GameObject activeCube;
     private Worker worker;
     private Tensor<float> inputTensor;
     private PassthroughCameraAccess cameraAccess;
 
     void Start()
     {
-        // 1. Initialize AI
         var model = ModelLoader.Load(yoloModel);
         worker = new Worker(model, BackendType.GPUCompute);
-        // Standard YOLOv8 shape (Batch, Channels, Height, Width)
         inputTensor = new Tensor<float>(new TensorShape(1, 3, 640, 640));
 
-        // 2. Find the camera "Eyes"
         cameraAccess = FindFirstObjectByType<PassthroughCameraAccess>();
         
         if (cameraAccess == null)
@@ -43,18 +44,12 @@ public class RubikDetectorPro : MonoBehaviour
 
     void RunInference(Texture sourceTexture)
     {
-        // 1. Texture to Tensor (Sentis 2.1 syntax)
-        // This resizes your camera frame to 640x640 for the AI
         TextureConverter.ToTensor(sourceTexture, inputTensor, new TextureTransform().SetDimensions(640, 640));
-
-        // 2. Execute AI
         worker.Schedule(inputTensor);
 
-        // 3. Get Output
         var output = worker.PeekOutput() as Tensor<float>;
         if (output == null) return;
 
-        // 4. Parse YOLOv8 Data (Shape: 1, 84, 8400)
         float[] data = output.DownloadToArray();
         int numCandidates = 8400;
         
@@ -63,41 +58,46 @@ public class RubikDetectorPro : MonoBehaviour
 
         for (int i = 0; i < numCandidates; i++)
         {
-            // Class 0 score is at index [4 * 8400 + i] in a standard YOLOv8 export
             float score = data[4 * numCandidates + i]; 
             if (score > bestScore)
             {
                 bestScore = score;
-                // Get normalized coordinates (0 to 1)
                 bestX = data[0 * numCandidates + i] / 640f; 
                 bestY = data[1 * numCandidates + i] / 640f;
             }
         }
 
-        // 5. Move the Cube
         if (bestX != -1) PlaceCube(bestX, bestY);
     }
 
+    // --- THE UPDATED FUNCTION ---
     void PlaceCube(float x, float y)
     {
-        // UPDATED LINE 82: 
-        // Using Meta's specialized raycaster for Passthrough alignment
-        // Viewport is 0-1. We use '1 - y' because screen vs texture coordinates are flipped.
+        // 1. Create a Ray from the physical RGB cameras using Meta's specialized PCA API
+        // This accounts for the physical offset of the Quest 3 lenses.
         Ray ray = cameraAccess.ViewportPointToRay(new Vector2(x, 1 - y));
 
         if (MRUK.Instance?.GetCurrentRoom() != null)
         {
-            // MRUK Environment Raycast checks against your scanned room walls/furniture
+            // 2. Check the MRUK room data to see where that Ray hits your hand/table
             if (MRUK.Instance.GetCurrentRoom().Raycast(ray, 10f, out RaycastHit hit))
             {
                 if (activeCube == null) 
                     activeCube = Instantiate(digitalCubePrefab);
 
-                // Lock digital cube to the real world position detected by MRUK
-                activeCube.transform.position = hit.point;
+                // 3. THE FLOATING LOGIC:
+                // We take the hit point (the real cube) and add the hoverHeight (going UP).
+                Vector3 targetPosition = hit.point + (Vector3.up * hoverHeight);
+
+                // 4. THE SMOOTHING LOGIC (Lerp):
+                // Instead of snapping, we glide. This stops the digital cube from vibrating 
+                // if the AI is slightly jumpy.
+                activeCube.transform.position = Vector3.Lerp(activeCube.transform.position, targetPosition, Time.deltaTime * smoothSpeed);
                 
-                // Align to surface normal (so it sits flat on a table)
-                activeCube.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
+                // 5. THE BILLBOARDING LOGIC:
+                // This makes the digital cube rotate to face YOU so you can read the moves easily.
+                Vector3 lookDirection = Camera.main.transform.position - activeCube.transform.position;
+                activeCube.transform.rotation = Quaternion.LookRotation(-lookDirection);
             }
         }
     }
