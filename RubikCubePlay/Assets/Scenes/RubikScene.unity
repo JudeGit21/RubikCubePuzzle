@@ -1482,100 +1482,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Renderer: {fileID: 1291399511}
   m_MaterialIndex: 0
---- !u!1001 &795084014
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5100244822137463363, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_Name
-      value: RubikCubeInitializer
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463363, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9fdb34c58e4434641a3f2fa24392c401, type: 3}
---- !u!1 &795084015 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5100244822137463363, guid: 9fdb34c58e4434641a3f2fa24392c401,
-    type: 3}
-  m_PrefabInstance: {fileID: 795084014}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &798337360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,9 +1903,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yoloModel: {fileID: 5022602860645237092, guid: 1385803e42d29ee4ea560816d5e6005c,
     type: 3}
-  confidenceThreshold: 0.5
-  digitalCubePrefab: {fileID: 795084015}
-  hoverHeight: 0.22
+  confidenceThreshold: 0.075
+  digitalCubePrefab: {fileID: 4984317733517745701, guid: 5699540ba6f1b5442937444c30a136e2,
+    type: 3}
+  hoverHeight: 0.25
   smoothSpeed: 10
 --- !u!4 &1172075360
 Transform:
@@ -5841,7 +5748,6 @@ SceneRoots:
   - {fileID: 2073726594}
   - {fileID: 5339021968817259872}
   - {fileID: 1472087351}
-  - {fileID: 795084014}
   - {fileID: 559623438}
   - {fileID: 2104809705}
   - {fileID: 1172075360}
