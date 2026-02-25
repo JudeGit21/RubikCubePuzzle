@@ -1994,7 +1994,7 @@ MonoBehaviour:
     type: 3}
   confidenceThreshold: 0.5
   digitalCubePrefab: {fileID: 795084015}
-  hoverHeight: 0.2
+  hoverHeight: 0.22
   smoothSpeed: 10
 --- !u!4 &1172075360
 Transform:
