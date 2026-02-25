@@ -928,37 +928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &448469978
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 448469981}
-  m_Layer: 0
-  m_Name: '***AI_Brain***'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &448469981
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 448469978}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.10474378, y: 0.65634143, z: 0.38882494}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &465102248 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3032334164735723895, guid: 66d40221d132d04499855da9ce315f20,
@@ -2025,6 +1994,8 @@ MonoBehaviour:
     type: 3}
   confidenceThreshold: 0.5
   digitalCubePrefab: {fileID: 795084015}
+  hoverHeight: 0.2
+  smoothSpeed: 10
 --- !u!4 &1172075360
 Transform:
   m_ObjectHideFlags: 0
@@ -3193,6 +3164,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PassthroughCameraAccessPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847449403238870662, guid: abfaad578d05e4a09838223134c41c46,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5862,6 +5838,5 @@ SceneRoots:
   - {fileID: 1472087351}
   - {fileID: 795084014}
   - {fileID: 559623438}
-  - {fileID: 448469981}
   - {fileID: 2104809705}
   - {fileID: 1172075360}
