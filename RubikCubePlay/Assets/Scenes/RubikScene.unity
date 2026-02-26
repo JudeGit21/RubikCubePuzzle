@@ -1954,6 +1954,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RubikCubeInitializer
       objectReference: {fileID: 0}
+    - target: {fileID: 5100244822137463363, guid: 9fdb34c58e4434641a3f2fa24392c401,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
         type: 3}
       propertyPath: m_LocalScale.x
