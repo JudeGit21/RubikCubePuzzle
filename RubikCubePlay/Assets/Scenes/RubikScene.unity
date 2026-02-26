@@ -1903,8 +1903,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   yoloModel: {fileID: 5022602860645237092, guid: 1385803e42d29ee4ea560816d5e6005c,
     type: 3}
-  confidenceThreshold: 0.075
-  digitalCubePrefab: {fileID: 4984317733517745701, guid: 5699540ba6f1b5442937444c30a136e2,
+  confidenceThreshold: 0.229
+  digitalCubePrefab: {fileID: 5100244822137463363, guid: 9fdb34c58e4434641a3f2fa24392c401,
     type: 3}
   hoverHeight: 0.25
   smoothSpeed: 10
