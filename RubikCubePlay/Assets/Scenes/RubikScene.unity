@@ -1882,6 +1882,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1172075360}
   - component: {fileID: 1172075359}
+  - component: {fileID: 1172075361}
   m_Layer: 0
   m_Name: AI_Manager
   m_TagString: Untagged
@@ -1918,11 +1919,93 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.1, z: 0.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.06, y: 0.06, z: 0.06}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1172075361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172075358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff37d40e76f91f34cb748c4b658693ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rubikCubePrefab: {fileID: 7526513965415888479, guid: 5699540ba6f1b5442937444c30a136e2,
+    type: 3}
+  _dimensions: 3
+  _cubletPrefab: {fileID: 851049134473544261, guid: 715496ce602429647a243205ba824ea4,
+    type: 3}
+  hideInvisibleSides: 1
+  _maxHistorySize: 50
+  _shuffleOnStart: 1
+  _shuffleCount: 20
+  _shuffleSpeed: 5
+  _allowRespawning: 1
+  _minMaxCubeSize: {x: 2, y: 9}
+  _zoomFactorPerUnit: 1.5
+  _cameraMouseOrbit: {fileID: 0}
+  _axisDisplay: {fileID: 0}
+  _debugText: {fileID: 0}
+  OnNewCubeBeforeInitialize:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnNewCubeAfterInitialize:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCurrentCubeBeforeDestroy:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCurrentCubeAfterDestroy:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCubeChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnCubeSolved:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1172075361}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: SetDiscRotationEnabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &1195591829 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3329460641207926453, guid: b6d57cedc6a73c94aad8ce006a26b41b,
@@ -1957,7 +2040,7 @@ PrefabInstance:
     - target: {fileID: 5100244822137463363, guid: 9fdb34c58e4434641a3f2fa24392c401,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5100244822137463365, guid: 9fdb34c58e4434641a3f2fa24392c401,
         type: 3}
