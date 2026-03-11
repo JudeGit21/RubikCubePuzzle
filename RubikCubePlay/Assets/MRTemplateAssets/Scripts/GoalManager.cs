@@ -103,6 +103,11 @@ namespace UnityEngine.XR.Templates.MR
             m_OnboardingGoals.Enqueue(findSurfaceGoal);
             m_OnboardingGoals.Enqueue(tapSurfaceGoal);
             m_OnboardingGoals.Enqueue(endGoal);
+            for (int i = 4; i < m_StepList.Count; i++)
+            {
+                var setFaceGoal = new Goal(OnboardingGoals.Empty);
+                m_OnboardingGoals.Enqueue(setFaceGoal);                
+            }
 
             m_CurrentGoal = m_OnboardingGoals.Dequeue();
             if (m_TapTooltip != null)
@@ -211,7 +216,7 @@ namespace UnityEngine.XR.Templates.MR
 
         void CompleteGoal()
         {
-            if (m_CurrentGoal.CurrentGoal == OnboardingGoals.TapSurface)
+            if (m_CurrentGoal.CurrentGoal == OnboardingGoals.TapSurface && m_ObjectSpawner != null)
                 m_ObjectSpawner.objectSpawned -= OnObjectSpawned;
 
             // disable tooltips before setting next goal
@@ -219,6 +224,9 @@ namespace UnityEngine.XR.Templates.MR
 
             m_CurrentGoal.Completed = true;
             m_CurrentGoalIndex++;
+
+            print("mmd: " + m_CurrentGoalIndex);
+
             if (m_OnboardingGoals.Count > 0)
             {
                 m_CurrentGoal = m_OnboardingGoals.Dequeue();
@@ -252,7 +260,8 @@ namespace UnityEngine.XR.Templates.MR
                     m_LearnButton.SetActive(false);
                 }
                 m_SurfacesTapped = 0;
-                m_ObjectSpawner.objectSpawned += OnObjectSpawned;
+                if (m_ObjectSpawner != null)
+                    m_ObjectSpawner.objectSpawned += OnObjectSpawned;
             }
         }
 
@@ -365,6 +374,11 @@ namespace UnityEngine.XR.Templates.MR
             m_OnboardingGoals.Enqueue(findSurfaceGoal);
             m_OnboardingGoals.Enqueue(tapSurfaceGoal);
             m_OnboardingGoals.Enqueue(endGoal);
+            for (int i = 4; i < m_StepList.Count; i++)
+            {
+                var setFaceGoal = new Goal(OnboardingGoals.Empty);
+                m_OnboardingGoals.Enqueue(setFaceGoal);
+            }
 
             for (int i = 0; i < m_StepList.Count; i++)
             {
