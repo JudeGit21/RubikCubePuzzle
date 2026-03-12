@@ -7,7 +7,7 @@ public class RubikDetectorPro : MonoBehaviour
 {
     [Header("AI Configuration")]
     public ModelAsset yoloModel;
-    [Range(0, 1)] public float confidenceThreshold = 0.70f;
+    [Range(0, 1)] public float confidenceThreshold = 0.40f;
 
     [Header("Instructor Settings")]
     public GameObject digitalCubePrefab;
@@ -15,7 +15,7 @@ public class RubikDetectorPro : MonoBehaviour
     public float smoothSpeed = 12f;
 
     [Header("Debug")]
-    public Vector4 lastDetection; // x,y,width,height
+    public Vector4 lastDetection;
 
     private GameObject activeCube;
     private Worker worker;
@@ -25,34 +25,54 @@ public class RubikDetectorPro : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("RubikDetectorPro starting...");
+
         // Load YOLO model
         try
         {
             var model = ModelLoader.Load(yoloModel);
             worker = new Worker(model, BackendType.GPUCompute);
             inputTensor = new Tensor<float>(new TensorShape(1, 3, 640, 640));
+
+            Debug.Log("YOLO model loaded successfully.");
         }
         catch
         {
-            Debug.LogWarning("AI Worker failed to start. Check your model asset.");
+            Debug.LogError("Failed to load YOLO model!");
         }
 
         // Find passthrough camera
         cameraAccess = FindFirstObjectByType<PassthroughCameraAccess>();
 
+        if (cameraAccess == null)
+            Debug.LogError("PassthroughCameraAccess NOT found!");
+        else
+            Debug.Log("Passthrough camera connected.");
+
         // Find headset camera
         vrCamera = Camera.main;
+
         if (vrCamera == null)
             vrCamera = FindFirstObjectByType<Camera>();
+
+        if (vrCamera != null)
+            Debug.Log("VR Camera found.");
+        else
+            Debug.LogError("VR Camera NOT found!");
 
         // Spawn instructor cube
         if (digitalCubePrefab != null)
         {
             activeCube = Instantiate(digitalCubePrefab);
+
             activeCube.name = "INSTRUCTOR_CUBE";
             activeCube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
-            // Disable legacy scripts inside prefab
+            activeCube.SetActive(false);
+
+            Debug.Log("Instructor cube created.");
+
+            // Disable legacy rotator scripts
             MonoBehaviour[] scripts = activeCube.GetComponentsInChildren<MonoBehaviour>();
 
             foreach (var s in scripts)
@@ -61,17 +81,28 @@ public class RubikDetectorPro : MonoBehaviour
                     s.enabled = false;
             }
         }
+        else
+        {
+            Debug.LogError("Digital Cube Prefab is not assigned!");
+        }
     }
 
     void Update()
     {
-        if (cameraAccess != null && cameraAccess.IsPlaying)
-        {
-            Texture frame = cameraAccess.GetTexture();
+        if (cameraAccess == null)
+            return;
 
-            if (frame != null)
-                RunInference(frame);
-        }
+        if (!cameraAccess.IsPlaying)
+            return;
+
+        Texture frame = cameraAccess.GetTexture();
+
+        if (frame == null)
+            return;
+
+        Debug.Log("Camera frame received.");
+
+        RunInference(frame);
     }
 
     void RunInference(Texture sourceTexture)
@@ -82,14 +113,15 @@ public class RubikDetectorPro : MonoBehaviour
         worker.Schedule(inputTensor);
 
         var output = worker.PeekOutput() as Tensor<float>;
-        if (output == null) return;
+
+        if (output == null)
+            return;
 
         float[] data = output.DownloadToArray();
 
         int numCandidates = 8400;
 
         float bestScore = confidenceThreshold;
-
         float bestX = -1;
         float bestY = -1;
         float bestW = 0;
@@ -101,6 +133,8 @@ public class RubikDetectorPro : MonoBehaviour
 
             if (score > bestScore)
             {
+                Debug.Log("Detection score: " + score);
+
                 bestScore = score;
 
                 bestX = data[0 * numCandidates + i] / 640f;
@@ -114,47 +148,47 @@ public class RubikDetectorPro : MonoBehaviour
         {
             lastDetection = new Vector4(bestX, bestY, bestW, bestH);
 
-            PlaceCube(bestX, bestY, bestW, bestH);
+            PlaceCube(bestX, bestY);
         }
     }
 
-    void PlaceCube(float x, float y, float w, float h)
+    void PlaceCube(float x, float y)
     {
         if (cameraAccess == null || vrCamera == null)
             return;
 
         Ray ray = cameraAccess.ViewportPointToRay(new Vector2(x, 1 - y));
 
-        if (MRUK.Instance?.GetCurrentRoom() != null)
+        if (MRUK.Instance?.GetCurrentRoom() == null)
+            return;
+
+        if (MRUK.Instance.GetCurrentRoom().Raycast(ray, 10f, out RaycastHit hit))
         {
-            if (MRUK.Instance.GetCurrentRoom().Raycast(ray, 10f, out RaycastHit hit))
+            activeCube.SetActive(true);
+
+            Vector3 targetPos = hit.point + (Vector3.up * hoverHeight);
+
+            activeCube.transform.position =
+                Vector3.Lerp(activeCube.transform.position,
+                             targetPos,
+                             Time.deltaTime * smoothSpeed);
+
+            // Face the player
+            Vector3 lookDir = vrCamera.transform.position - activeCube.transform.position;
+            lookDir.y = 0;
+
+            if (lookDir != Vector3.zero)
             {
-                activeCube.SetActive(true);
-
-                Vector3 targetPos = hit.point + (Vector3.up * hoverHeight);
-
-                activeCube.transform.position =
-                    Vector3.Lerp(activeCube.transform.position,
-                                 targetPos,
-                                 Time.deltaTime * smoothSpeed);
-
-                // Face the player
-                Vector3 lookDir = vrCamera.transform.position - activeCube.transform.position;
-                lookDir.y = 0;
-
-                if (lookDir != Vector3.zero)
-                {
-                    activeCube.transform.rotation =
-                        Quaternion.Slerp(
-                            activeCube.transform.rotation,
-                            Quaternion.LookRotation(lookDir),
-                            Time.deltaTime * smoothSpeed);
-                }
+                activeCube.transform.rotation =
+                    Quaternion.Slerp(
+                        activeCube.transform.rotation,
+                        Quaternion.LookRotation(lookDir),
+                        Time.deltaTime * smoothSpeed);
             }
         }
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
         worker?.Dispose();
         inputTensor?.Dispose();
