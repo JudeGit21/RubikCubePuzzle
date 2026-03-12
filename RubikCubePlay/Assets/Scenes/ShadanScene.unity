@@ -491,7 +491,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -803,7 +803,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -1186,7 +1186,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -1390,7 +1390,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -1795,7 +1795,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -2403,7 +2403,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -2684,7 +2684,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -2889,7 +2889,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -3738,7 +3738,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -4491,7 +4491,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -4734,7 +4734,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -5101,7 +5101,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -5629,7 +5629,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -5764,7 +5764,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -6195,7 +6195,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -6424,7 +6424,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -6876,7 +6876,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -7305,7 +7305,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &761532744
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7359,11 +7359,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Place the face with the Blue center in front of you and match the remaining
-    8 colors :>
+  m_text: Hold the cube with the GREEN center facing you and the YELLOW  center on
+    top.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fbb7c6a04be6d8341934b839f24b42e1, type: 2}
+  m_sharedMaterial: {fileID: 4687939059374929122, guid: fbb7c6a04be6d8341934b839f24b42e1,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7530,7 +7531,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -9009,7 +9010,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -9321,7 +9322,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -9520,7 +9521,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -9741,11 +9742,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Place the face with the Green center in front of you and match the remaining
-    8 colors :>
+  m_text: Hold the cube with the ORANGE center facing you and the YELLOW center on
+    top.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fbb7c6a04be6d8341934b839f24b42e1, type: 2}
+  m_sharedMaterial: {fileID: 4687939059374929122, guid: fbb7c6a04be6d8341934b839f24b42e1,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10000,11 +10002,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Place the face with the white center in front of you and match the remaining
-    8 colors :>
+  m_text: Hold the cube with the WHITE center facing you and the RED center on top.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fbb7c6a04be6d8341934b839f24b42e1, type: 2}
+  m_sharedMaterial: {fileID: 4687939059374929122, guid: fbb7c6a04be6d8341934b839f24b42e1,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10034,7 +10036,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -10091,7 +10093,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -10364,11 +10366,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Place the face with the Red center in front of you and match the remaining
-    8 colors :>
+  m_text: Hold the cube with the YELLOW center facing you and the ORANGE  center
+    on top.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fbb7c6a04be6d8341934b839f24b42e1, type: 2}
+  m_sharedMaterial: {fileID: 4687939059374929122, guid: fbb7c6a04be6d8341934b839f24b42e1,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10455,7 +10458,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -10864,7 +10867,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -11461,7 +11464,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -12819,6 +12822,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3644385571429782922, guid: 66d40221d132d04499855da9ce315f20,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4302131796633534605, guid: 66d40221d132d04499855da9ce315f20,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -13010,7 +13018,7 @@ PrefabInstance:
     - target: {fileID: 6395079691047489029, guid: 66d40221d132d04499855da9ce315f20,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -660
+      value: -220
       objectReference: {fileID: 0}
     - target: {fileID: 7158865763779469689, guid: 66d40221d132d04499855da9ce315f20,
         type: 3}
@@ -13031,7 +13039,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 2024363298, guid: 1d2df6008e6c14675944d01e91abb3e1,
+      objectReference: {fileID: 21300000, guid: e175094c51c4ef84aa37f160d8ba44a9,
         type: 3}
     - target: {fileID: 7423083323456312675, guid: 66d40221d132d04499855da9ce315f20,
         type: 3}
@@ -13141,7 +13149,7 @@ PrefabInstance:
     - target: {fileID: 8925207555904468295, guid: 66d40221d132d04499855da9ce315f20,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -660
+      value: -220
       objectReference: {fileID: 0}
     - target: {fileID: 9163648765846189281, guid: 66d40221d132d04499855da9ce315f20,
         type: 3}
@@ -13512,7 +13520,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -14095,7 +14103,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -14928,11 +14936,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Place the face with the Yellow center in front of you and match the remaining
-    8 colors :>
+  m_text: Hold the cube with the RED center facing you and the YELLOW center on top.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fbb7c6a04be6d8341934b839f24b42e1, type: 2}
+  m_sharedMaterial: {fileID: 4687939059374929122, guid: fbb7c6a04be6d8341934b839f24b42e1,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15094,7 +15102,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -15355,7 +15363,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -16089,7 +16097,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -16549,7 +16557,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -16739,11 +16747,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Place the face with the Orange center in front of you and match the remaining
-    8 colors :>
+  m_text: Hold the cube with the BLUE center facing you and the YELLOW center on
+    top.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fbb7c6a04be6d8341934b839f24b42e1, type: 2}
+  m_sharedMaterial: {fileID: 4687939059374929122, guid: fbb7c6a04be6d8341934b839f24b42e1,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -17426,7 +17435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -16}
+  m_AnchoredPosition: {x: 0, y: -161}
   m_SizeDelta: {x: 150, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1787075852
@@ -17722,7 +17731,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -18409,7 +18418,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -18550,7 +18559,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -18691,7 +18700,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -18820,7 +18829,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -18949,7 +18958,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -19078,7 +19087,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -19541,7 +19550,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -19745,7 +19754,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -19874,7 +19883,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -20294,7 +20303,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -20492,7 +20501,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -21054,7 +21063,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
@@ -21410,7 +21419,7 @@ PrefabInstance:
     - target: {fileID: 3191491309084428410, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
       propertyPath: startColorIndex
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8670413133714286281, guid: e20b93652689ff941bd9d0e3bfc8c91f,
         type: 3}
