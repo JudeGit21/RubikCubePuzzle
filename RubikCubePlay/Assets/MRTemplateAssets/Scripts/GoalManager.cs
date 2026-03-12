@@ -225,8 +225,6 @@ namespace UnityEngine.XR.Templates.MR
             m_CurrentGoal.Completed = true;
             m_CurrentGoalIndex++;
 
-            print("mmd: " + m_CurrentGoalIndex);
-
             if (m_OnboardingGoals.Count > 0)
             {
                 m_CurrentGoal = m_OnboardingGoals.Dequeue();

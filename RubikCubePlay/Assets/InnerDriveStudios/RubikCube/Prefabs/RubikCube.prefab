@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4984317733517745700}
   - component: {fileID: 4984317733517745703}
   - component: {fileID: 8391424976255519269}
+  - component: {fileID: -2162460739916324000}
   m_Layer: 0
   m_Name: RubikCube
   m_TagString: Untagged
@@ -28,12 +29,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4984317733517745701}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7045740966987729517
 BoxCollider:
@@ -43,9 +45,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4984317733517745701}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7526513965415888479
@@ -78,8 +88,7 @@ MonoBehaviour:
   _undoEnabled: 1
   _discRotationSpeed: 3
   _undoDiscRotationSpeed: 3
-  _debugText: {fileID: 0}
-  _showDebugInfo: 1
+  _generateDebugInfo: 1
 --- !u!114 &4984317733517745703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,15 +117,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noteText: 'The rubik cube has three components:
 
-    a) Rubik Cube which implements the creation of the cublets, rotation of the discs
-    and checking if the cube is solved
+    a) Rubik Cube which implements
+    the creation of the cublets, rotation of the discs and checking if the cube is
+    solved
 
-    b) Rubik Cube Initializer which initializes the rubik cube with specific dimensions
-    and an optional shuffle on start.
+    b) Rubik Cube Initializer which initializes the rubik cube with specific
+    dimensions and an optional shuffle on start.
 
-    c) DiscRotator which interpretes the user actions and converts them into actions
-    on the rubikcube
+    c) DiscRotator which interpretes
+    the user actions and converts them into actions on the rubikcube
 
-    d) CubeRotator interprets swipe movements to rotate the whole cube itself in 90
-    degree increments.'
+    d) CubeRotator
+    interprets swipe movements to rotate the whole cube itself in 90 degree increments.'
   noteType: 0
+--- !u!114 &-2162460739916324000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4984317733517745701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2d7d89889b4d94fa1f8d6fe49788e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 0}
+  m_TargetOffset: {x: 0, y: 0, z: 1}
+  m_FollowInLocalSpace: 0
+  m_ApplyTargetInLocalSpace: 0
+  m_MovementSpeed: 2
+  m_MovementSpeedVariancePercentage: 0.25
+  m_SnapOnEnable: 1
+  m_PositionFollowMode: 1
+  m_MinDistanceAllowed: 0.01
+  m_MaxDistanceAllowed: 0.5
+  m_TimeUntilThresholdReachesMaxDistance: 3
+  m_RotationFollowMode: 2
+  m_MinAngleAllowed: 0.1
+  m_MaxAngleAllowed: 2
+  m_TimeUntilThresholdReachesMaxAngle: 3

@@ -4,19 +4,20 @@ using UnityEngine.UI;
 
 public class CubletFaceUI : MonoBehaviour
 {
+    public event Action<int, int, int> OnSetColor;
+
     public Color[] colors = new Color[6] { Color.white, Color.red, Color.yellow, new Color(255, 87, 0), Color.green, Color.blue };
 
     public bool locked = false;
     public int startColorIndex = 0;
 
-    private Image image;
+    public Image[] images;
     private Button button;
 
     private int currentColorIndex;
     void Start()
     {
         button = GetComponent<Button>();
-        image = GetComponent<Image>();
 
         currentColorIndex = startColorIndex - 1;
         GoToNextColor();
@@ -37,6 +38,9 @@ public class CubletFaceUI : MonoBehaviour
         if ( currentColorIndex >= colors.Length )
             currentColorIndex = 0;
 
-        image.color = colors[currentColorIndex];
+        foreach ( var image in images )
+            image.color = colors[currentColorIndex];
+
+        OnSetColor?.Invoke(transform.GetSiblingIndex(), startColorIndex, currentColorIndex);
     }
 }
